@@ -2,10 +2,10 @@ package com.codecool.linkedlist;
 
 public class SinglyLinkedList <T> {
 
-    private class Link <T> {
+    private class Link {
 
         private T value;
-        private Link<T> next;
+        private Link next;
 
         Link(T value) {
             this.value = value;
@@ -15,16 +15,16 @@ public class SinglyLinkedList <T> {
             return value;
         }
 
-        Link<T> getNext() {
+        Link getNext() {
             return next;
         }
 
-        void setNext(Link<T> next) {
+        void setNext(Link next) {
             this.next = next;
         }
     }
 
-    private Link<T> head;
+    private Link head;
 
     public SinglyLinkedList() {
     }
@@ -36,8 +36,15 @@ public class SinglyLinkedList <T> {
      *
      * @param value value to be appended
      */
-    public <T> void add(T value) {
-
+    public void add(T value) {
+        if (head == null){
+            head = new Link(value);
+        }
+        Link last = head;
+        while (last.getNext() != null) {
+            last = last.getNext();
+        }
+        last.setNext(new Link(value));
     }
 
     /**
