@@ -9,12 +9,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class SinglyLinkedListTest<T> {
+class SinglyLinkedListTest {
 
-    SinglyLinkedList<T> listUnderTest;
+    SinglyLinkedList<Integer> listUnderTest;
 
     public SinglyLinkedListTest() {
-        this.listUnderTest = new SinglyLinkedList<T>();
+        this.listUnderTest = new SinglyLinkedList<Integer>();
     }
 
     @Test
