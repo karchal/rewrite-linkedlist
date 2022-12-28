@@ -1,30 +1,30 @@
 package com.codecool.linkedlist;
 
-public class SinglyLinkedList {
+public class SinglyLinkedList <T> {
 
-    private class Link {
+    private class Link <T> {
 
-        private int value;
-        private Link next;
+        private T value;
+        private Link<T> next;
 
-        Link(int value) {
+        Link(T value) {
             this.value = value;
         }
 
-        int getValue() {
+        T getValue() {
             return value;
         }
 
-        Link getNext() {
+        Link<T> getNext() {
             return next;
         }
 
-        void setNext(Link next) {
+        void setNext(Link<T> next) {
             this.next = next;
         }
     }
 
-    private Link head;
+    private Link<T> head;
 
     public SinglyLinkedList() {
     }
@@ -36,7 +36,8 @@ public class SinglyLinkedList {
      *
      * @param value value to be appended
      */
-    public void add(int value) {
+    public <T> void add(T value) {
+
     }
 
     /**
@@ -55,7 +56,7 @@ public class SinglyLinkedList {
      * @param number value to be searched
      * @return Index of 'number' if it's in the list, otherwise -1;
      */
-    public int indexOf(int number) {
+    public <T> int indexOf(T number) {
         return 0;
     }
 
@@ -63,9 +64,9 @@ public class SinglyLinkedList {
      * Inserts a value at an index into the array shifting elements if necessary.
      *
      * @param index  Position of the new element
-     * @param number Value to be inserted.
+     * @param value Value to be inserted.
      */
-    public void insert(int index, int number) {
+    public <T> void insert(int index, T value) {
     }
 
     /**
