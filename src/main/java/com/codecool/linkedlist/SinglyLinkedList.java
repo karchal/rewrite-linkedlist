@@ -53,8 +53,16 @@ public class SinglyLinkedList <T> {
      * @param index the position of requested value
      * @return value of element at index
      */
-    public int get(int index) {
-        return 0;
+    public Link get(int index) {
+        Link elementWithIndex = head;
+        int i = 0;
+        if (elementWithIndex == null) throw new IndexOutOfBoundsException();
+        while (i < index){
+            if (elementWithIndex.getNext() == null) throw new IndexOutOfBoundsException();
+            elementWithIndex = elementWithIndex.getNext();
+            i++;
+        }
+        return elementWithIndex;
     }
 
     /**
