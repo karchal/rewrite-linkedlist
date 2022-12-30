@@ -15,6 +15,10 @@ public class SinglyLinkedList <T> {
             return value;
         }
 
+        boolean hasNext() {
+            return getNext() != null;
+        }
+
         Link getNext() {
             return next;
         }
@@ -25,7 +29,7 @@ public class SinglyLinkedList <T> {
 
         public String toString(){
             if (next == null) return value.toString();
-            return value.toString() + ", " + next.toString();
+            return value.toString() + "," + next.toString();
         }
     }
 
@@ -46,7 +50,7 @@ public class SinglyLinkedList <T> {
             head = new Link(value);
         } else {
             Link last = head;
-            while (last.getNext() != null) {
+            while (last.hasNext()) {
                 last = last.getNext();
             }
             last.setNext(new Link(value));
@@ -60,15 +64,19 @@ public class SinglyLinkedList <T> {
      * @return value of element at index
      */
     public T get(int index) {
+        return getLink(index).getValue();
+    }
+
+    private Link getLink(int index) {
         Link elementWithIndex = head;
         int i = 0;
         if (elementWithIndex == null) throw new IndexOutOfBoundsException();
         while (i < index) {
-            if (elementWithIndex.getNext() == null) throw new IndexOutOfBoundsException();
+            if (!elementWithIndex.hasNext()) throw new IndexOutOfBoundsException();
             elementWithIndex = elementWithIndex.getNext();
             i++;
         }
-        return elementWithIndex.getValue();
+        return elementWithIndex;
     }
 
     /**
@@ -79,25 +87,15 @@ public class SinglyLinkedList <T> {
      */
     public int indexOf(T value) {
         if (head == null) return -1;
-        Link elementWithIndex = head;
+        Link elementWithValue = head;
         int i = 0;
-        while (elementWithIndex.getValue() != value) {
-            if (elementWithIndex.getNext() == null) return -1;
-            elementWithIndex = elementWithIndex.getNext();
+        while (!value.equals(elementWithValue.getValue())) {
+            if (!elementWithValue.hasNext()) return -1;
+            elementWithValue = elementWithValue.getNext();
             i++;
         }
         return i;
     }
-
-    /**
-     * Inserts a value at an index into the array shifting elements if necessary.
-     *
-     * @param index Position of the new element
-     * @param value Value to be inserted.
-     */
-    public void insert(int index, T value) {
-    }
-
     /**
      * Returns with the amount of inserted nodes.
      *
@@ -107,12 +105,37 @@ public class SinglyLinkedList <T> {
         if (head == null) return 0;
         Link currentElement = head;
         int size = 1 ;
-        while (currentElement.getNext() != null) {
+        while (currentElement.hasNext()) {
             currentElement = currentElement.getNext();
             size++;
         }
         return size;
     }
+
+    /**
+     * Inserts a value at an index into the array shifting elements if necessary.
+     *
+     * @param index Position of the new element
+     * @param value Value to be inserted.
+     */
+    public void insert(int index, T value) {
+        int size = size();
+        if (index < 0 || index > size) throw new IndexOutOfBoundsException();
+        if (index == size) add(value);
+        else if (index == 0) {
+            Link nextElement = head;
+            head = new Link(value);
+            head.setNext(nextElement);
+        } else {
+            Link elementBeforeIndex = getLink(index - 1);
+            Link elementAtIndex = new Link(value);
+            Link elementAfterIndex = getLink(index);
+            elementAtIndex.setNext(elementAfterIndex);
+            elementBeforeIndex.setNext(elementAtIndex);
+        }
+    }
+
+
 
     /**
      * Removes the element at 'index' from the array.
@@ -145,15 +168,21 @@ public class SinglyLinkedList <T> {
 
     @Override
     public String toString() {
-        return "SinglyLinkedList{" + head + '}';
+        return "[" + head + "]";
     }
 
     public static void main(String[] args) {
         SinglyLinkedList<Integer> listUnderTest = new SinglyLinkedList<>();
-        listUnderTest.add(123);
+        listUnderTest.insert(0, 123);
         listUnderTest.add(234);
         listUnderTest.add(345);
         System.out.println(listUnderTest.toString());
+        listUnderTest.insert(3, 456);
+        listUnderTest.insert(0,0);
+        System.out.println(listUnderTest.toString());
+        listUnderTest.insert(2,0);
+        System.out.println(listUnderTest.toString());
+        System.out.println(listUnderTest.indexOf(345));
 
     }
 
