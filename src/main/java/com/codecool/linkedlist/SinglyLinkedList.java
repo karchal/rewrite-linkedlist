@@ -119,9 +119,7 @@ public class SinglyLinkedList <T> {
      * @param value Value to be inserted.
      */
     public void insert(int index, T value) {
-        int size = size();
-        if (index < 0 || index > size) throw new IndexOutOfBoundsException();
-        if (index == size) add(value);
+        if (index < 0) throw new IndexOutOfBoundsException();
         else if (index == 0) {
             Link nextElement = head;
             head = new Link(value);
@@ -129,8 +127,10 @@ public class SinglyLinkedList <T> {
         } else {
             Link elementBeforeIndex = getLink(index - 1);
             Link elementAtIndex = new Link(value);
-            Link elementAfterIndex = getLink(index);
-            elementAtIndex.setNext(elementAfterIndex);
+            if (elementBeforeIndex.hasNext()) {
+                Link elementAfterIndex = elementBeforeIndex.getNext();
+                elementAtIndex.setNext(elementAfterIndex);
+            }
             elementBeforeIndex.setNext(elementAtIndex);
         }
     }
@@ -170,20 +170,4 @@ public class SinglyLinkedList <T> {
     public String toString() {
         return "[" + head + "]";
     }
-
-    public static void main(String[] args) {
-        SinglyLinkedList<Integer> listUnderTest = new SinglyLinkedList<>();
-        listUnderTest.insert(0, 123);
-        listUnderTest.add(234);
-        listUnderTest.add(345);
-        System.out.println(listUnderTest.toString());
-        listUnderTest.insert(3, 456);
-        listUnderTest.insert(0,0);
-        System.out.println(listUnderTest.toString());
-        listUnderTest.insert(2,0);
-        System.out.println(listUnderTest.toString());
-        System.out.println(listUnderTest.indexOf(345));
-
-    }
-
 }
