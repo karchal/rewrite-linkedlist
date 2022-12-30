@@ -98,7 +98,14 @@ public class SinglyLinkedList <T> {
      * @return Size of list.
      */
     public int size() {
-        return 0;
+        if (head == null) return 0;
+        Link currentElement = head;
+        int size = 1;
+        while(currentElement.getNext() != null){
+            currentElement = currentElement.getNext();
+            size++;
+        }
+        return size;
     }
 
     /**
