@@ -68,11 +68,19 @@ public class SinglyLinkedList <T> {
     /**
      * Returns the zero-based index of the first occurrence of a value in the list.
      *
-     * @param number value to be searched
+     * @param value value to be searched
      * @return Index of 'number' if it's in the list, otherwise -1;
      */
-    public <T> int indexOf(T number) {
-        return 0;
+    public int indexOf(T value) {
+        if (head == null) return -1;
+        Link elementWithIndex = head;
+        int i = 0;
+        while (elementWithIndex.getValue() != value){
+            if (elementWithIndex.getNext() == null) return -1;
+            elementWithIndex = elementWithIndex.getNext();
+            i++;
+        }
+        return i;
     }
 
     /**
@@ -81,7 +89,7 @@ public class SinglyLinkedList <T> {
      * @param index  Position of the new element
      * @param value Value to be inserted.
      */
-    public <T> void insert(int index, T value) {
+    public void insert(int index, T value) {
     }
 
     /**
