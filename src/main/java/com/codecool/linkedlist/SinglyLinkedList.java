@@ -22,6 +22,11 @@ public class SinglyLinkedList <T> {
         void setNext(Link next) {
             this.next = next;
         }
+
+        public String toString(){
+            if (next == null) return value.toString();
+            return value.toString() + ", " + next.toString();
+        }
     }
 
     private Link head;
@@ -37,14 +42,15 @@ public class SinglyLinkedList <T> {
      * @param value value to be appended
      */
     public void add(T value) {
-        if (head == null){
+        if (head == null) {
             head = new Link(value);
+        } else {
+            Link last = head;
+            while (last.getNext() != null) {
+                last = last.getNext();
+            }
+            last.setNext(new Link(value));
         }
-        Link last = head;
-        while (last.getNext() != null) {
-            last = last.getNext();
-        }
-        last.setNext(new Link(value));
     }
 
     /**
@@ -53,16 +59,16 @@ public class SinglyLinkedList <T> {
      * @param index the position of requested value
      * @return value of element at index
      */
-    public Link get(int index) {
+    public T get(int index) {
         Link elementWithIndex = head;
         int i = 0;
         if (elementWithIndex == null) throw new IndexOutOfBoundsException();
-        while (i < index){
+        while (i < index) {
             if (elementWithIndex.getNext() == null) throw new IndexOutOfBoundsException();
             elementWithIndex = elementWithIndex.getNext();
             i++;
         }
-        return elementWithIndex;
+        return elementWithIndex.getValue();
     }
 
     /**
@@ -75,7 +81,7 @@ public class SinglyLinkedList <T> {
         if (head == null) return -1;
         Link elementWithIndex = head;
         int i = 0;
-        while (elementWithIndex.getValue() != value){
+        while (elementWithIndex.getValue() != value) {
             if (elementWithIndex.getNext() == null) return -1;
             elementWithIndex = elementWithIndex.getNext();
             i++;
@@ -86,7 +92,7 @@ public class SinglyLinkedList <T> {
     /**
      * Inserts a value at an index into the array shifting elements if necessary.
      *
-     * @param index  Position of the new element
+     * @param index Position of the new element
      * @param value Value to be inserted.
      */
     public void insert(int index, T value) {
@@ -98,7 +104,14 @@ public class SinglyLinkedList <T> {
      * @return Size of list.
      */
     public int size() {
-        return 0;
+        if (head == null) return 0;
+        Link currentElement = head;
+        int size = 1 ;
+        while (currentElement.getNext() != null) {
+            currentElement = currentElement.getNext();
+            size++;
+        }
+        return size;
     }
 
     /**
@@ -129,4 +142,19 @@ public class SinglyLinkedList <T> {
         }
         elementBeforeIndex.setNext(elementAtIndex.getNext());
     }
+
+    @Override
+    public String toString() {
+        return "SinglyLinkedList{" + head + '}';
+    }
+
+    public static void main(String[] args) {
+        SinglyLinkedList<Integer> listUnderTest = new SinglyLinkedList<>();
+        listUnderTest.add(123);
+        listUnderTest.add(234);
+        listUnderTest.add(345);
+        System.out.println(listUnderTest.toString());
+
+    }
+
 }

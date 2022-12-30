@@ -2,7 +2,7 @@ package com.codecool.linkedlist;
 
 public class Main {
 
-    private static SinglyLinkedList list;
+    private static SinglyLinkedList<Integer> list;
 
     public static void main(String[] args) {
         System.out.println("Your implementation is correct when there's no failing test after running mvn clean test.");
